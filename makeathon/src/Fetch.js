@@ -191,7 +191,7 @@ function Fetch() {
                 <tr key={index}>
                   <td>{data?.humidity ?? "---"}</td>
                   <td>{data?.temperature ?? "---"}</td>
-                  <td>{data?.gas_sensor ?? "---"}</td>
+                  <td>{data?.gassensor ?? "---"}</td>
                   <td>{new Date(data.timestamp).toLocaleString()}</td>
                 </tr>
               ))}
