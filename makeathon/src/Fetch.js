@@ -57,20 +57,22 @@ function Fetch() {
   };
   const handleDataChange = (snapshot) => {
     const data = snapshot.val();
+    console.log(data);
     const newData = {
       humidity: data.humidity,
       temperature: data.temperature,
       gassensor: data.gas_sensor,
       timestamp: Date.now(),
     };
+    console.log(newData);
     setDataValue((prevData) => [...prevData, newData]);
 
-    if (realtimeData) {
-      axios
-        .post("http://localhost:4000/makeathon", newData)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-    }
+    // if (!realtimeData) {
+    axios
+      .post("http://localhost:4000/makeathon", newData)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+    // }
     if (!firebaseRealtimeData) {
       // Stop fetching data from Firebase
       // firebase.database().ref().off();
@@ -87,24 +89,6 @@ function Fetch() {
       // firebase.database().ref().on("value", handleDataChange);
     }
     console.log(realtimeData);
-    // if (!realtimeData) {
-    //   axios
-    //     .get("http://localhost:4000/realtimeData", {
-    //       cancelToken: source.token,
-    //     })
-    //     .then((res) => {
-    //       setDataValue((prevData) => [...prevData, res.data]);
-    //     })
-    //     .catch((err) => {
-    //       if (axios.isCancel(err)) {
-    //         console.log("Realtime data fetching cancelled");
-    //       } else {
-    //         console.log(err);
-    //       }
-    //     });
-    // } else {
-    //   source.cancel("Realtime data fetching cancelled");
-    // }
   };
   useEffect(() => {
     const postsRef = ref(db, "/");
